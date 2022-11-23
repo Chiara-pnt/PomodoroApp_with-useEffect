@@ -4,32 +4,46 @@ const Range = ({
   setSecondsLeft,
   workBreak,
   setWorkBreak,
-  setIsPaused,
   timerLength,
   setTimerLength,
+  setIsPaused,
+  intervalId,
 }) => {
   const handleTimerChange = (e) => {
-    setTimerLength(e.target.value);
-    setSecondsLeft(e.target.value * 60);
     setIsPaused(true);
+    clearInterval(intervalId);
+    if (e.target.value === "") {
+      setTimerLength(timerLength);
+    } else {
+      setTimerLength(e.target.value);
+      setSecondsLeft(e.target.value * 60);
+    }
   };
 
   const handleBreakChange = (e) => {
-    setWorkBreak(e.target.value);
+    setIsPaused(true);
+    clearInterval(intervalId);
+    if (e.target.value === "") {
+      setWorkBreak(workBreak);
+    } else {
+      setWorkBreak(e.target.value);
+    }
   };
 
   return (
     <div>
-      <label>Work minutes: {timerLength}:00</label>
+      <label htmlFor="session">Work minutes: {timerLength}:00</label>
       <input
+        name="session"
         type="number"
         min="5"
         max="60"
         value={timerLength}
         onChange={handleTimerChange}
       ></input>
-      <label>Break minutes: {workBreak}:00</label>
+      <label htmlFor="break">Break minutes: {workBreak}:00</label>
       <input
+        name="break"
         type="number"
         min="1"
         max="30"

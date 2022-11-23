@@ -1,7 +1,6 @@
 import PauseButton from "./PauseButton";
 import PlayButton from "./PlayButton";
 import ResetButton from "./ResetButton";
-import { useState } from "react";
 
 const Controls = ({
   timerLength,
@@ -9,9 +8,9 @@ const Controls = ({
   setMode,
   isPaused,
   setIsPaused,
+  intervalId,
+  setIntervalId,
 }) => {
-  const [intervalId, setIntervalId] = useState();
-
   const handleReset = () => {
     setSecondsLeft(timerLength * 60);
     clearInterval(intervalId);

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Controls from "./Controls";
 import Range from "./Range";
 import Display from "./Display";
+import Mode from "./Mode";
 
 const Timer = () => {
   const [mode, setMode] = useState("work");
@@ -11,6 +12,7 @@ const Timer = () => {
   const [workBreak, setWorkBreak] = useState(5);
   const [secondsLeft, setSecondsLeft] = useState(timerLength * 60);
   const [isPaused, setIsPaused] = useState(true);
+  const [intervalId, setIntervalId] = useState();
 
   useEffect(() => {
     function switchMode() {
@@ -33,26 +35,21 @@ const Timer = () => {
         setSecondsLeft={setSecondsLeft}
         workBreak={workBreak}
         setWorkBreak={setWorkBreak}
-        isPaused={isPaused}
         timerLength={timerLength}
         setTimerLength={setTimerLength}
+        setIsPaused={setIsPaused}
+        intervalId={intervalId}
       />
-      <div>
-        {mode === "work" ? (
-          <h2 className="text">Working time!</h2>
-        ) : (
-          <h2 className="text">You're on Break!</h2>
-        )}
-      </div>
-      <Display secondsLeft={secondsLeft} setSecondsLeft={setSecondsLeft} />
+      <Mode mode={mode} />
+      <Display secondsLeft={secondsLeft} />
       <Controls
         timerLength={timerLength}
-        setTimerLength={setTimerLength}
-        secondsLeft={setSecondsLeft}
         setSecondsLeft={setSecondsLeft}
         setMode={setMode}
         setIsPaused={setIsPaused}
         isPaused={isPaused}
+        intervalId={intervalId}
+        setIntervalId={setIntervalId}
       />
       <Animations />
     </div>
